@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Edge Viewer - Web</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align:center; margin: 20px; }
+    #frame { max-width: 90vw; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>Edge Viewer - Web (sample)</h1>
+  <img id="frame" src="processed_sample.png" alt="Processed frame"/>
+  <div>
+    <p id="stats">FPS: -- | Resolution: --</p>
+  </div>
+  <script type="module" src="dist/index.js"></script>
+</body>
+</html>

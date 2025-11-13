@@ -1,0 +1,13 @@
+{
+  "name": "edgeviewer-web",
+  "version": "1.0.0",
+  "description": "Minimal TypeScript web viewer for EdgeViewer project",
+  "scripts": {
+    "start": "lite-server",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "lite-server": "^2.6.1",
+    "typescript": "^5.6.0"
+  }
+}
