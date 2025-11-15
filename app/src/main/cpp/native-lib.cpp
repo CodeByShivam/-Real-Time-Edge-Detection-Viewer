@@ -10,25 +10,15 @@
 extern "C"
 JNIEXPORT jbyteArray JNICALL
 Java_com_example_edgeviewer_NativeBridge_processFrame(JNIEnv* env, jclass, jbyteArray input_, jint width, jint height) {
-    // Convert jbyteArray -> std::vector<uint8_t>
     jsize inLen = env->GetArrayLength(input_);
     std::vector<uchar> inputBuf(inLen);
     env->GetByteArrayRegion(input_, 0, inLen, reinterpret_cast<jbyte*>(inputBuf.data()));
 
-    // Create cv::Mat from ARGB_8888 byte array (Android stores as 4 bytes per pixel)
-    // ARGB_8888 ordering: [A, R, G, B] per pixel. OpenCV prefers RGBA or BGRA.
-    // We'll construct RGBA Mat and then convert to grayscale for Canny.
-
     cv::Mat rgba(height, width, CV_8UC4);
-    // Android's Bitmap.copyPixelsToBuffer writes pixels as ARGB (little endian dependent),
-    // but for simplicity assume order A,R,G,B per pixel in sequence.
     memcpy(rgba.data, inputBuf.data(), inLen);
-
-    // Convert to grayscale
     cv::Mat gray;
     cv::cvtColor(rgba, gray, cv::COLOR_RGBA2GRAY);
 
-    // Apply Gaussian blur to reduce noise then Canny
     cv::Mat blurred;
     cv::GaussianBlur(gray, blurred, cv::Size(5,5), 1.5);
     cv::Mat edges;
